@@ -1,12 +1,19 @@
+import os
+from dotenv import load_dotenv
 import chainlit as cl
 import google.generativeai as genai
 
-# Gemini API key
-genai.configure(api_key="AIzaSyC06Izwiyw977s41OyNxm9ZGjDJxVSc_ZM")
+# Load .env file
+load_dotenv()
 
-# Correct model name and syntax
+# Get API key from .env
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+# Configure Gemini
+genai.configure(api_key=API_KEY)
+
+# Model
 model = genai.GenerativeModel(model_name="models/gemini-2.5-pro")
-
 
 @cl.on_message
 async def main(message: cl.Message):
